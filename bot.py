@@ -5,10 +5,7 @@ from aiogram.filters import Command
 from deep_translator import GoogleTranslator
 import yt_dlp
 
-BOT_TOKEN = os.getenv("BOT_TOKEN")
-
-if not BOT_TOKEN:
-    raise ValueError("⚠️ BOT_TOKEN مفقود، أضفه في Environment Variables في Render.")
+BOT_TOKEN = os.getenv("BOT_TOKEN") or "7508829488:AAFHbXdf-mBhLRODm8pcWJSmq-x_HreiXmc"
 
 bot = Bot(token=BOT_TOKEN)
 dp = Dispatcher()
@@ -21,7 +18,6 @@ async def start_handler(message: types.Message):
 async def handle_message(message: types.Message):
     text = message.text
 
-    # تحميل فيديو من يوتيوب
     if "youtube.com" in text or "youtu.be" in text:
         await message.reply("🎥 جاري تجهيز الفيديو...")
         ydl_opts = {'quiet': True, 'format': 'best', 'noplaylist': True}
@@ -30,7 +26,6 @@ async def handle_message(message: types.Message):
             await message.reply(f"🎬 الفيديو: {info['title']}\n🔗 {info['url']}")
         return
 
-    # ترجمة النص باستخدام deep_translator
     translated = GoogleTranslator(source='auto', target='ar').translate(text)
     await message.reply(f"🌍 الترجمة: {translated}")
 
