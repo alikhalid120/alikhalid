@@ -2,7 +2,7 @@ from aiogram import Bot, Dispatcher, types
 from aiogram.utils import executor
 from googletrans import Translator
 
-BOT_TOKEN = "ضع_التوكن_هنا"
+BOT_TOKEN = "7508829488:AAFHbXdf-mBhLRODm8pcWJSmq-x_HreiXmc"
 
 bot = Bot(token=BOT_TOKEN)
 dp = Dispatcher(bot)
