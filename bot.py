@@ -1,9 +1,14 @@
-
+import os
 from aiogram import Bot, Dispatcher, types
 from aiogram.utils import executor
 from googletrans import Translator
 
-BOT_TOKEN = ""
+# قراءة التوكن من متغير البيئة في Render
+BOT_TOKEN = os.getenv("BOT_TOKEN")
+
+# تحقق من وجود التوكن
+if not BOT_TOKEN:
+    raise ValueError("⚠️ لم يتم العثور على BOT_TOKEN. تأكد من إضافته في Render Environment Variables.")
 
 bot = Bot(token=BOT_TOKEN)
 dp = Dispatcher(bot)
@@ -11,8 +16,7 @@ translator = Translator()
 
 @dp.message_handler(commands=['start'])
 async def start(message: types.Message):
-    await message.reply("👋 مرحبًا بك! أنا بوت ترجمة ومقاطع فيديو.
-اكتب أي جملة لأترجمها، أو أرسل رابط يوتيوب لتنزيله 🎬")
+    await message.reply("👋 مرحبًا بك! أنا بوت ترجمة ومقاطع فيديو.\nاكتب أي جملة لأترجمها، أو أرسل رابط يوتيوب لتنزيله 🎬")
 
 @dp.message_handler()
 async def handle_message(message: types.Message):
@@ -25,8 +29,7 @@ async def handle_message(message: types.Message):
         with yt_dlp.YoutubeDL({'outtmpl': '%(title)s.%(ext)s'}) as ydl:
             info = ydl.extract_info(text, download=False)
             url = info['url']
-            await message.reply(f"🎬 الفيديو جاهز:
-{url}")
+            await message.reply(f"🎬 الفيديو جاهز:\n{url}")
         return
 
     # غير ذلك، ترجم النص
