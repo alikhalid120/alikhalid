@@ -2,7 +2,7 @@ import os
 import asyncio
 from aiogram import Bot, Dispatcher, types
 from aiogram.filters import Command
-from googletrans import Translator
+from deep_translator import GoogleTranslator
 import yt_dlp
 
 BOT_TOKEN = os.getenv("BOT_TOKEN")
@@ -12,7 +12,6 @@ if not BOT_TOKEN:
 
 bot = Bot(token=BOT_TOKEN)
 dp = Dispatcher()
-translator = Translator()
 
 @dp.message(Command("start"))
 async def start_handler(message: types.Message):
@@ -31,8 +30,8 @@ async def handle_message(message: types.Message):
             await message.reply(f"🎬 الفيديو: {info['title']}\n🔗 {info['url']}")
         return
 
-    # ترجمة النص
-    translated = translator.translate(text, dest='ar').text
+    # ترجمة النص باستخدام deep_translator
+    translated = GoogleTranslator(source='auto', target='ar').translate(text)
     await message.reply(f"🌍 الترجمة: {translated}")
 
 async def main():
