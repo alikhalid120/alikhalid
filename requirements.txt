@@ -1,3 +1,0 @@
-aiogram==3.22.0
-deep-translator
-yt-dlp
