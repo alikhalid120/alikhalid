@@ -1,0 +1,5 @@
+{
+  "name": "ComicBubble AI",
+  "description": "Advanced comic typesetting tool with AI bubble detection, smart text fitting, and Arabic RTL support.",
+  "requestFramePermissions": []
+}
